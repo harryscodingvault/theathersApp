@@ -10,7 +10,7 @@ const list = async (req, res) => {
     movies_movie_id: ["movies", null, "movie_id"],
     title: ["movies", null, "title"],
     movies_runtime_in_minutes: ["movies", null, "runtime_in_minutes"],
-    movies_rating: ["movies", null, "movies_rating"],
+    movies_rating: ["movies", null, "rating"],
     movies_description: ["movies", null, "description"],
     movies_image_url: ["movies", null, "image_url"],
     movies_created_at: ["movies", null, "created_at"],
