@@ -23,4 +23,11 @@ const getTheaters = (movieId) => {
     .where({ "movies_theaters.movie_id": movieId });
 };
 
-module.exports = { list, listShowing, getMovie, getTheaters };
+const getReviews = (movieId) => {
+  return knex("movies")
+    .join("reviews", "reviews.movie_id", "movies.movie_id")
+    .select("reviews.*")
+    .where({ "reviews.movie_id": movieId });
+};
+
+module.exports = { list, listShowing, getMovie, getTheaters, getReviews };
