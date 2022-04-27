@@ -1,6 +1,19 @@
 const service = require("./movies.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
+// Utils
+const movieExist = async (req, res, next) => {
+  const { movieId } = req.params;
+
+  const movie = await service.getMovie(movieId);
+  if (movie) {
+    res.locals.movie = movie;
+    return next();
+  }
+  return next({ status: 404, message: `Movie cannot be found.` });
+};
+
+// Route Functions
 const list = async (req, res) => {
   const is_showing = req.query.is_showing;
   let data = {};
@@ -13,14 +26,11 @@ const list = async (req, res) => {
   res.json({ data });
 };
 
-const list_showing_movies = async (req, res) => {
-  const { query } = req.params;
-  const data = await service.listShowing();
-  console.log("list_showing_movies");
-  res.json("lol");
+const getMovie = async (req, res) => {
+  res.json({ data: res.locals.movie });
 };
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  list_showing_movies: asyncErrorBoundary(list_showing_movies),
+  getMovie: [asyncErrorBoundary(movieExist), asyncErrorBoundary(getMovie)],
 };

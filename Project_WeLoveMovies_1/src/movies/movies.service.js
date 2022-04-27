@@ -12,4 +12,8 @@ const listShowing = () => {
     .where({ "movies_theaters.is_showing": "true" });
 };
 
-module.exports = { list, listShowing };
+const getMovie = (movieId) => {
+  return knex("movies").select("*").where({ "movies.movie_id": movieId });
+};
+
+module.exports = { list, listShowing, getMovie };
