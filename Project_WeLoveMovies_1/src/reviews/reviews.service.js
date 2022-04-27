@@ -9,7 +9,6 @@ const deleteReview = (reviewId) => {
 };
 
 const updateReview = (updatedReview) => {
-  console.log("updatedReview", updatedReview);
   return knex("reviews")
     .select("*")
     .where({ review_id: updatedReview.review_id })
