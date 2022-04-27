@@ -6,7 +6,7 @@ const movieExist = async (req, res, next) => {
   const { movieId } = req.params;
 
   const movie = await service.getMovie(movieId);
-  if (movie) {
+  if (movie.length) {
     res.locals.movie = movie[0];
     return next();
   }
