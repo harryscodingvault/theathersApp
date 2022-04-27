@@ -19,9 +19,23 @@ const deleteReview = async (req, res) => {
   res.sendStatus(204);
 };
 
+const updateReview = async (req, res) => {
+  const updatedReview = {
+    ...req.body.data,
+    review_id: res.locals.review.review_id,
+  };
+  const data = await service.updateReview(updatedReview);
+
+  res.status(201).json({ data: data });
+};
+
 module.exports = {
   deleteReview: [
     asyncErrorBoundary(reviewExist),
     asyncErrorBoundary(deleteReview),
+  ],
+  updateReview: [
+    asyncErrorBoundary(reviewExist),
+    asyncErrorBoundary(updateReview),
   ],
 };

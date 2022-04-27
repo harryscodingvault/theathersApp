@@ -8,4 +8,12 @@ const deleteReview = (reviewId) => {
   return knex("reviews").where({ "reviews.review_id": reviewId }).del();
 };
 
-module.exports = { deleteReview, getReview };
+const updateReview = (updatedReview) => {
+  console.log("updatedReview", updatedReview);
+  return knex("reviews")
+    .select("*")
+    .where({ review_id: updatedReview.review_id })
+    .update(updatedReview, "*");
+};
+
+module.exports = { deleteReview, getReview, updateReview };
