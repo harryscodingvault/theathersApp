@@ -17,8 +17,8 @@ const movieExist = async (req, res, next) => {
 const list = async (req, res) => {
   const is_showing = req.query.is_showing;
   let data = {};
-  if (is_showing == "true") {
-    data = await service.listShowing();
+  if (is_showing) {
+    data = await service.listShowing(is_showing);
   } else {
     data = await service.list();
   }
@@ -38,7 +38,26 @@ const getTheaters = async (req, res) => {
 
 const getReviews = async (req, res) => {
   const data = await service.getReviews(res.locals.movie.movie_id);
-  res.json({ data: data });
+  const formatedData = data.map((item) => {
+    return {
+      review_id: item.review_id,
+      content: item.content,
+      score: item.score,
+      created_at: item.created_at,
+      updated_at: item.updated_at,
+      critic_id: item.critic_id,
+      movie_id: item.movie_id,
+      critic: {
+        critic_id: item.critics_critic_id,
+        preferred_name: item.preferred_name,
+        surname: item.surname,
+        organization_name: item.organization_name,
+        created_at: item.critics_created_at,
+        updated_at: item.critics_updated_at,
+      },
+    };
+  });
+  res.json({ data: formatedData });
 };
 
 module.exports = {
