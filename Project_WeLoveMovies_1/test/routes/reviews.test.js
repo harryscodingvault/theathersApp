@@ -35,6 +35,9 @@ describe("Review Routes", () => {
         .put(`/reviews/${previous.review_id}`)
         .send({ data });
 
+      console.log("previous ---->", previous.review_id);
+      console.log("response body ---->", response.body.data);
+
       expect(response.body.error).toBeUndefined();
       expect(response.body.data).toEqual(
         expect.objectContaining({
@@ -53,7 +56,7 @@ describe("Review Routes", () => {
       const updatedReview = await db("reviews")
         .where({ review_id: previous.review_id })
         .first();
-
+      console.log("updatedReview  ---->", updatedReview);
       expect(updatedReview.content).toBe("Content");
     });
   });
