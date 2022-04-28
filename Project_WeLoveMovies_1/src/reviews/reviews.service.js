@@ -1,6 +1,4 @@
 const knex = require("../db/connection");
-const reduceProperties = require("../utils/reduce-properties");
-const mapProperties = require("../utils/map-properties");
 
 const getReview = (reviewId) => {
   return knex("reviews")
