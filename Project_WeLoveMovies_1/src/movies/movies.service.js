@@ -8,7 +8,14 @@ const listShowing = (is_showing) => {
   return knex("movies")
     .join("movies_theaters", "movies_theaters.movie_id", "movies.movie_id")
     .distinctOn("movies.movie_id")
-    .select("movies.*")
+    .select(
+      "movies.movie_id as id",
+      "movies.title",
+      "movies.runtime_in_minutes",
+      "movies.rating",
+      "movies.description",
+      "movies.image_url"
+    )
     .where({ "movies_theaters.is_showing": is_showing });
 };
 

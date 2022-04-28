@@ -16,14 +16,15 @@ const movieExist = async (req, res, next) => {
 // Route Functions
 const list = async (req, res) => {
   const is_showing = req.query.is_showing;
+
   let data = {};
   if (is_showing) {
-    data = await service.listShowing(is_showing);
+    data = await service.listShowing(String(is_showing));
   } else {
     data = await service.list();
   }
 
-  res.json({ data });
+  res.json({ data: data });
 };
 
 const getMovie = async (req, res) => {

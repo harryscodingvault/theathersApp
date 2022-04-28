@@ -21,9 +21,6 @@ const list = () => {
       "movies_theaters.is_showing as movies_is_showing",
       "movies_theaters.theater_id as movies_theater_id"
     )
-    .where({
-      "movies_theaters.is_showing": "true",
-    })
     .orderBy("movies_movie_id");
 };
 
