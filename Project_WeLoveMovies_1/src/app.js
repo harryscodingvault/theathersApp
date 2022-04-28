@@ -16,4 +16,10 @@ app.use("/theaters", theatersRouter);
 app.use(notFound);
 app.use(errorHandler);
 
+// Test router
+const test = async () => {
+  const previous = await knex("posts").first();
+  console.log(previous);
+};
+
 module.exports = app;

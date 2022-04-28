@@ -1,4 +1,5 @@
 const knex = require("../db/connection");
+const db = require("../db/connection");
 
 const list = () => {
   return knex("movies").select("*");
@@ -7,16 +8,17 @@ const list = () => {
 const listShowing = (is_showing) => {
   return knex("movies")
     .join("movies_theaters", "movies_theaters.movie_id", "movies.movie_id")
-    .distinctOn("movies.movie_id")
     .select(
       "movies.movie_id as id",
       "movies.title",
       "movies.runtime_in_minutes",
       "movies.rating",
       "movies.description",
-      "movies.image_url"
+      "movies.image_url",
+      "movies_theaters.is_showing as is_showing"
     )
-    .where({ "movies_theaters.is_showing": is_showing });
+    .distinct("movies.movie_id")
+    .whereRaw("movies_theaters.is_showing = true");
 };
 
 const getMovie = (movieId) => {
